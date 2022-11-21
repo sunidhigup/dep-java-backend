@@ -1,0 +1,15 @@
+aws:
+  bucketName: dep-qa
+  mdmArn: arn:aws:states:us-east-1:955658629586:stateMachine:DEP_CUSTOM_MDM
+  stateMachineARN: arn:aws:states:us-east-1:955658629586:stateMachine:resource_management_cdk_step_qa
+  region:
+    eu: eu-central-1
+    euStateMachineARN: arn:aws:states:eu-central-1:955658629586:stateMachine:resource_management_cdk_step_eu
+  customer360StateMachineARN: arn:aws:states:us-east-1:955658629586:stateMachine:Dep_analytics360
+  preProcessLambdaFunctn: arn:aws:lambda:us-east-1:955658629586:function:dep_qa_landing
+  preProcessor:
+    logGroupName: DEP_Pre_Processor
+    bucketName: qa-landingzone
+jar_folder_path: s3://dep-qa/rule_engine/jars/*
+region_name: us-east-1
+profile_env: qa

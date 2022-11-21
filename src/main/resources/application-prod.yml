@@ -1,0 +1,3 @@
+aws:
+   bucketName: dep-prod
+profile_env: prod

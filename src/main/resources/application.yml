@@ -1,0 +1,108 @@
+server:
+  port: 5000
+  servlet:
+    context-path:
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-circular-references: true
+  profiles:
+    active: qa
+  jpa:
+    database: default
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+
+    show-sql: false
+    open-in-view: false
+
+    properties:
+      hibernate:
+        show:
+          sql: true
+        use_sql_comments: true
+        format_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time-zone: UTC
+        lob:
+          non_contextual_creation: true
+        event:
+          merge:
+            entity_copy_observer: allow
+  jackson:
+    default-property-inclusion: null
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dep_aws_postgres?stringtype=unspecified
+    username: postgres
+    password: pushkar
+
+
+    initialization-mode: always
+    hikari:
+      maximum-pool-size: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: loggers
+  endpoint:
+    loggers:
+      enabled: true
+
+aws:
+  oracle:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    #    url: jdbc:oracle:thin:@oracle-test.c8xgxyogjacf.us-east-1.rds.amazonaws.com:1521:ORCL
+    url: jdbc:oracle:thin:@oracle-snp-db.c8xgxyogjacf.us-east-1.rds.amazonaws.com:1521:ORCL
+    username: admin
+    password: admin123
+  postgres:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dep_aws_postgres?stringtype=unspecified
+    dburi: jdbc:postgresql://localhost:5432/
+    dbstringtype: ?stringtype=unspecified
+    username: postgres
+    password: pushkar
+  dynamo:
+    endpoint: https://dynamodb.us-east-1.amazonaws.com
+  region: us-east-1
+  accessKey: ASIA55ANROHJLEQVOB4I
+  secretKey: 4Z+nLNKWg2Zhbpfb9HV4cJs89Utq0aFTyvUqVfa/
+  sessionToken: IQoJb3JpZ2luX2VjEDUaCXVzLWVhc3QtMSJGMEQCIAZoCCRrL3gdAHZ6x51M46s7fTPAWyAaD8gzEsm8H9XRAiB8cH7zuj+1HLv1HUdV/KjihpDLyyoqg+yBDx5+dpoTlCqAAwg9EAEaDDk1NTY1ODYyOTU4NiIM4mlBFmr5pGBjQTbkKt0CoKYqSU2ORQdqcI6zOzUlFauZUWxsutqouOHerHEiBWLAaQ7rxQzfHzjOphlNOiH8+TJ5LlLO/k1aoM01xjoN1L5dsKibz8daaOAYUK7gU3Isz9UkRKBC1j3wIsylhmBe0bJU9pGfv4xlfFrJlDKkxQs/9wgTGmCP74hcjto5KnXira1XVFRvp6IrSPA8ib5f9bhQfsRv5SZmNRN/0vkeztp5LwGDVJWRl/1r2QtJEX1ua0Pnc7p4RAW8smlDW95AyQlMDK74F5hXW29MCbjDi3iAjK2AdxkCWlARl9fHQc7PLRglNRO2xzsH0Vm+uBRI7txlLVYDcQc/y7wUTxkskWmgoHqbVeua76tyBnQUB28cRxQQ8VJncnHWHs5Mu2pV0vMEAjmaaTtqpJo1/G637Utpm2F7wCJRP9Sz2c+TitV7PxQEBSkyRjWVmDaQ7zTKH36/zI5fCg/Jombg4jC4jtybBjqnAScrTNtqOQ5KflgjAeGN9qcQx0B1Tl1moRXL+/PQovxnzQ9D2EENx40+cxX7zNIaU8x2t7nPkgyraICyySFjcqMFDobDA1kl+hzak+vqV2NenfUJ1rlPtsxawrelGwAgZPe+1qMVil0qENeG6FokjDb8o8Sw54gKBl/J+40O/TRfR8QgzcjFYGS02HQFRO49wMVUKkVhRv4ovcgbSx8pCamqcJ3h+XAr
+
+  dataProcessor:
+    logGroupName: /aws/vendedlogs/states/CDEP_STATE_MACHINE_1-Logs
+  ruleEngine:
+    logGroupName: cdep_rule_engine_logs
+  preprocessor:
+    logGroupName: DEP_Pre_Processor
+    fargateLogGroupName: DEP_Pre_Processor
+  IAMRoleARN: arn:aws:iam::955658629586:role/service-role/StepFunctions-Cdep_resource_management-role-3afb1986
+  flowBuilderJsonLocation: Data_Processor/Scripts
+  cognito:
+    clientId: 36s3558eskol113gbpmqje6htd
+    poolID: us-east-1_fEo1SnyZu
+  logGroupName: /aws/vendedlogs/states/CDEP_STATE_MACHINE_1-Logs
+  glue:
+    IAMRoleARN: arn:aws:iam::955658629586:role/aws-glue
+    glewDbName: dep_dtacatalog
+    s3GlewTargetPath: s3://cdep/output/valid/
+    glewCrawlerName: dep_crawler
+  athena:
+    queryOuputLocation: s3://test-athena-query-dep/
+  preProcessLambdaFunctn: arn:aws:lambda:us-east-1:955658629586:function:dep_landing
+  preProcessZipStepFunction: arn:aws:states:us-east-1:955658629586:stateMachine:Cdep_preprocessor
+  pdfSteFunctnArn: arn:aws:states:us-east-1:955658629586:stateMachine:Cdep_Preprocess_PDF
+  zipSteFunctnArn: arn:aws:states:us-east-1:955658629586:stateMachine:Cdep_preprocessor
+
+jwt:
+  secret: 8iikFFdK/ZZ1rnkEPANROHJDKFCXVzLWVhc3QtMSJotgncIso
