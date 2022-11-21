@@ -40,9 +40,9 @@ spring:
     default-property-inclusion: null
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/dep_aws_postgres?stringtype=unspecified
+    url: jdbc:postgresql://dep-database-us-east-1.c8xgxyogjacf.us-east-1.rds.amazonaws.com:5432/dep_postgres?stringtype=unspecified
     username: postgres
-    password: pushkar
+    password: SuOYMwYRBYNPzK1y1fqn
 
 
     initialization-mode: always
